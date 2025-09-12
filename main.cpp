@@ -8,11 +8,11 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtGui/QIcon>
 
-void qDialog()
+void qDialog(QString& i)
 {
     QDialog dialog;
     dialog.setWindowTitle("Hello, dialog!");
-    QLabel* dialogLabel = new QLabel("This is a modal dialog!", &dialog);
+    QLabel* dialogLabel = new QLabel(i, &dialog);
     dialogLabel->setAlignment(Qt::AlignCenter);
     QVBoxLayout* dialogLayout = new QVBoxLayout(&dialog);
     dialogLayout->addWidget(dialogLabel);
@@ -34,7 +34,8 @@ int main(int argc, char* argv[])
     QPushButton* pushButton = new QPushButton("Click Me!", centralWidget);
     QObject::connect(pushButton, &QPushButton::clicked, [&]() {
         qDebug() << "Button clicked! Opening dialog...";
-        qDialog();
+        QString inputStr = textEdit->toPlainText();
+        qDialog(inputStr);
         });
     mainLayout->addWidget(label);
     mainLayout->addWidget(textEdit);
